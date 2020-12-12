@@ -1,0 +1,27 @@
+#arm32v7/debian,arm64v8/debian,ubuntu
+ARG OSLINE=arm32v7/debian
+#bullseye,focal
+ARG OSVERSION=bullseye
+ARG UID=1000
+ARG GID=1000
+ARG USER=build
+
+FROM ${OSLINE}:${OSVERSION}
+
+ENV uid=1000
+ENV gid=1000
+ENV user=build
+
+
+RUN apt-get update #&& apt-get upgrade
+
+#ugly hack for ubuntu:focal
+RUN echo "Europe/Berlin" > /etc/timezone
+RUN ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential cmake gettext git-core libarchive-dev libbz2-dev libcairo2-dev libcurl4-openssl-dev libelf-dev libexif-dev libgdk-pixbuf2.0-dev libgl1-mesa-dev liblz4-dev liblzma-dev libpango1.0-dev libglib2.0-dev libsndfile1-dev libsqlite3-dev libtinyxml-dev libunarr-dev libwxgtk3.0-gtk3-dev libwxgtk-webview3.0-gtk3-dev libwxsvg-dev  portaudio19-dev
+
+RUN echo "$uid $gid $user"
+RUN groupadd -g $gid dev
+RUN useradd -m -u $uid -g $gid $user
+CMD /bin/bash

@@ -1,0 +1,24 @@
+#arm32v7/debian,arm64v8/debian,ubuntu
+ARG OSLINE=arm32v7/debian
+#buster,bionic
+ARG OSVERSION=buster
+ARG UID=1000
+ARG GID=1000
+ARG USER=build
+
+FROM ${OSLINE}:${OSVERSION}
+
+ENV uid=1000
+ENV gid=1000
+ENV user=build
+
+
+RUN apt-get update #&& apt-get upgrade
+
+
+RUN apt-get install -y build-essential cmake gettext git-core gpsd gpsd-clients libgps-dev wx-common libwxgtk3.0-dev libglu1-mesa-dev libgtk2.0-dev wx3.0-headers libbz2-dev libtinyxml-dev libportaudio2 portaudio19-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev libelf-dev libsqlite3-dev lsb-release software-properties-common libssl-dev
+
+RUN echo "$uid $gid $user"
+RUN groupadd -g $gid dev
+RUN useradd -m -u $uid -g $gid $user
+CMD /bin/bash

@@ -1,0 +1,22 @@
+1) GTK2
+Wird für ubuntu/bionic & debian/buster benutzt
+
+armhf:buster: 
+$docker build --build-arg OSLINE=arm32v7/debian --build-arg OSVERSION=buster -f GTK2/Dockerfile  .
+arm64:buster: 
+$ docker build --build-arg OSLINE=arm64v8/debian --build-arg OSVERSION=buster -f GTK2/Dockerfile  .
+amd64:bionic: 
+$ docker build --build-arg OSLINE=ubuntu --build-arg OSVERSION=bionic -f GTK2/Dockerfile  .
+
+Es ist auch möglich i386/debian & amd64/debian zu pullen
+
+2) GTK3
+Wird für ubuntu/focal & debian/bullseye benutzt
+amd64:focal:
+$ docker build --build-arg OSLINE=ubuntu --build-arg OSVERSION=focal -f GTK3/Dockerfile  .
+armhf:bullseye:
+$ docker build --build-arg OSLINE=arm32v7/debian --build-arg OSVERSION=bullseye -f GTK3/Dockerfile  .
+arm64:bullseye:
+$ docker build --build-arg OSLINE=arm64v8/debian --build-arg OSVERSION=bullseye -f GTK3/Dockerfile  .
+
+
